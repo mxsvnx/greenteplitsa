@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Удалить график{% endblock %}
+
+{% block content %}
+  <h1>Удалить график</h1>
+
+  <p>Удалить график для культуры: <strong>{{ object.crop }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Да, удалить</button>
+  </form>
+
+  <p><a href="{% url 'schedule_list' %}">Отмена</a></p>
+{% endblock %}

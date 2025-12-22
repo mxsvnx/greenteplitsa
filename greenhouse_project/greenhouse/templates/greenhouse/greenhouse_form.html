@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Теплица{% endblock %}
+
+{% block content %}
+  <h1>Теплица</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+  </form>
+
+  <p><a href="{% url 'greenhouse_list' %}">Назад к списку</a></p>
+{% endblock %}

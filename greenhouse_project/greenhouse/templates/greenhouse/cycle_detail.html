@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Цикл{% endblock %}
+
+{% block content %}
+  <h1>Цикл выращивания</h1>
+
+  <p>
+    <strong>Теплица:</strong> {{ cycle.greenhouse }}<br>
+    <strong>Культура:</strong> {{ cycle.crop }}<br>
+    <strong>Период:</strong> {{ cycle.start_date }}{% if cycle.end_date %} → {{ cycle.end_date }}{% endif %}<br>
+    <strong>Статус:</strong> {{ cycle.get_status_display }}
+  </p>
+
+  <p><a href="{% url 'cycle_list' %}">Назад к циклам</a></p>
+
+  {% if can_edit %}
+    <form method="post" action="{% url 'cycle_generate_plan' cycle.pk %}">
+      {% csrf_token %}
+      <button type="submit">Сгенерировать план работ по графику культуры</button>
+    </form>
+  {% endif %}
+
+  <h2>План работ</h2>
+
+  {% if plans %}
+    <ul>
+      {% for p in plans %}
+        <li>
+          {{ p.planned_date }}{% if p.planned_end_date %} → {{ p.planned_end_date }}{% endif %}
+          — {{ p.work_type.name }}
+          {% if p.notes %} ({{ p.notes }}){% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>План работ пока не составлен.</p>
+  {% endif %}
+
+  <h2>Факт работ</h2>
+
+  <h3>Итоги по циклу</h3>
+  <ul>
+    <li>Вода: {{ totals.total_water|default_if_none:"0" }} л</li>
+    <li>Удобрения: {{ totals.total_fertilizer|default_if_none:"0" }} кг</li>
+    <li>Трудозатраты: {{ totals.total_labor|default_if_none:"0" }} ч</li>
+    <li>Урожай: {{ totals.total_yield|default_if_none:"0" }} кг</li>
+  </ul>
+
+  {% if can_edit %}
+    <h3>Добавить факт работ</h3>
+
+    <form method="post" action="{% url 'cycle_add_log' cycle.pk %}">
+      {% csrf_token %}
+
+      <p>
+        <label>Тип работы:</label><br>
+        <select name="work_type" required>
+          {% for wt in work_types %}
+            <option value="{{ wt.id }}">{{ wt.name }}</option>
+          {% endfor %}
+        </select>
+      </p>
+
+      <p>
+        <label>Фактическая дата:</label><br>
+        <input type="date" name="actual_date" required>
+      </p>
+
+      <p><label>Вода (л):</label><br><input type="number" step="0.01" name="water_liters"></p>
+      <p><label>Удобрения (кг):</label><br><input type="number" step="0.001" name="fertilizer_kg"></p>
+      <p><label>Трудозатраты (ч):</label><br><input type="number" step="0.01" name="labor_hours"></p>
+      <p><label>Урожай (кг):</label><br><input type="number" step="0.001" name="yield_kg"></p>
+
+      <p>
+        <label>Комментарий:</label><br>
+        <textarea name="comment" rows="3"></textarea>
+      </p>
+
+      <button type="submit">Сохранить факт</button>
+    </form>
+
+    <hr>
+  {% endif %}
+
+  {% if logs %}
+    <h3>Внесённые работы</h3>
+    <ul>
+      {% for l in logs %}
+        <li>
+          {{ l.actual_date }} — {{ l.work_type.name }}
+          {% if l.water_liters %} | вода: {{ l.water_liters }} л{% endif %}
+          {% if l.fertilizer_kg %} | удобрения: {{ l.fertilizer_kg }} кг{% endif %}
+          {% if l.labor_hours %} | труд: {{ l.labor_hours }} ч{% endif %}
+          {% if l.yield_kg %} | урожай: {{ l.yield_kg }} кг{% endif %}
+          {% if l.comment %} | {{ l.comment }}{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Факт работ пока не внесён.</p>
+  {% endif %}
+{% endblock %}

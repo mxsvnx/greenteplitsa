@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+  <h1>Тепличное хозяйство</h1>
+
+  <ul>
+    <li><a href="{% url 'greenhouse_list' %}">Теплицы</a></li>
+    <li><a href="{% url 'crop_list' %}">Культуры</a></li>
+    <li><a href="{% url 'cycle_list' %}">Циклы</a></li>
+    <li><a href="{% url 'schedule_list' %}">Графики культур</a></li>
+  </ul>
+{% endblock %}

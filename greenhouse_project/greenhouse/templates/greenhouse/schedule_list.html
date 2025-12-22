@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Графики культур{% endblock %}
+
+{% block content %}
+  <h1>Графики культур</h1>
+
+  {% if can_edit %}
+    <p><a href="{% url 'schedule_add' %}">Добавить график</a></p>
+  {% endif %}
+
+  {% if schedules %}
+    <ul>
+      {% for s in schedules %}
+        <li>
+          <strong>{{ s.crop }}</strong>:
+          посев {{ s.sow_start }}{% if s.sow_end %} → {{ s.sow_end }}{% endif %},
+          полив {{ s.watering_start }}{% if s.watering_end %} → {{ s.watering_end }}{% endif %},
+          удобрения {{ s.fertilizing_start }}{% if s.fertilizing_end %} → {{ s.fertilizing_end }}{% endif %},
+          сбор {{ s.harvest_start }}{% if s.harvest_end %} → {{ s.harvest_end }}{% endif %}
+
+          {% if can_edit %}
+            — <a href="{% url 'schedule_edit' s.pk %}">редактировать</a>
+            — <a href="{% url 'schedule_delete' s.pk %}">удалить</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Графиков пока нет.</p>
+  {% endif %}
+{% endblock %}

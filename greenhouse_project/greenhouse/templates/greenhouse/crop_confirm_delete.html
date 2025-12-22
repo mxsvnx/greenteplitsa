@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Удаление культуры{% endblock %}
+
+{% block content %}
+  <h1>Удаление культуры</h1>
+
+  <p>Удалить: <strong>{{ object.name }}</strong>{% if object.variety %} ({{ object.variety }}){% endif %}?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+  </form>
+
+  <p><a href="{% url 'crop_list' %}">Отмена</a></p>
+{% endblock %}

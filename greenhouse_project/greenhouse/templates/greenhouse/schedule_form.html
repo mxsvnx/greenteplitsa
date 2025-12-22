@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}График культуры{% endblock %}
+
+{% block content %}
+  <h1>График культуры</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+  </form>
+
+  <p><a href="{% url 'schedule_list' %}">Назад к графикам</a></p>
+{% endblock %}

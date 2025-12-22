@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Циклы выращивания{% endblock %}
+
+{% block content %}
+  <h1>Циклы выращивания</h1>
+
+  {% if can_edit %}
+    <p><a href="{% url 'cycle_add' %}">Добавить цикл</a></p>
+  {% endif %}
+
+  {% if cycles %}
+    <ul>
+      {% for cy in cycles %}
+        <li>
+          <a href="{% url 'cycle_detail' cy.pk %}"><strong>{{ cy.greenhouse }}</strong> — {{ cy.crop }}</a>
+          ({{ cy.start_date }}{% if cy.end_date %} → {{ cy.end_date }}{% endif %})
+          — {{ cy.get_status_display }}
+
+          {% if can_edit %}
+            — <a href="{% url 'cycle_edit' cy.pk %}">редактировать</a>
+            — <a href="{% url 'cycle_delete' cy.pk %}">удалить</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Циклов пока нет.</p>
+  {% endif %}
+{% endblock %}

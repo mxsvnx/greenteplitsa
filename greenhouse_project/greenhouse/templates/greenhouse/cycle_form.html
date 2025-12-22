@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Цикл выращивания{% endblock %}
+
+{% block content %}
+  <h1>Цикл выращивания</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+  </form>
+
+  <p><a href="{% url 'cycle_list' %}">Назад к списку</a></p>
+{% endblock %}

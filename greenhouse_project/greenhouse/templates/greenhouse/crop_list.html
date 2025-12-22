@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Культуры{% endblock %}
+
+{% block content %}
+  <h1>Культуры</h1>
+
+  {% if can_edit %}
+    <p><a href="{% url 'crop_add' %}">Добавить культуру</a></p>
+  {% endif %}
+
+  {% if crops %}
+    <ul>
+      {% for c in crops %}
+        <li>
+          <strong>{{ c.name }}</strong>
+          {% if c.variety %}({{ c.variety }}){% endif %}
+
+          {% if can_edit %}
+            — <a href="{% url 'crop_edit' c.pk %}">редактировать</a>
+            — <a href="{% url 'crop_delete' c.pk %}">удалить</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Культур пока нет.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Удаление цикла{% endblock %}
+
+{% block content %}
+  <h1>Удаление цикла</h1>
+
+  <p>Удалить цикл: <strong>{{ object.greenhouse }} — {{ object.crop }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+  </form>
+
+  <p><a href="{% url 'cycle_list' %}">Отмена</a></p>
+{% endblock %}
