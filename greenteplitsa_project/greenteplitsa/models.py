@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 
-class Greenhouse(models.Model):
+class Greenteplitsa(models.Model):
     TYPE_VEGETABLES = "vegetables"
     TYPE_GREENS = "greens"
     TYPE_BERRIES = "berries"
@@ -16,7 +16,7 @@ class Greenhouse(models.Model):
     )
 
     name = models.CharField("Название", max_length=128, unique=True)
-    greenhouse_type = models.CharField(
+    greenteplitsa_type = models.CharField(
         "Тип продукции",
         max_length=32,
         choices=TYPE_CHOICES,
@@ -96,8 +96,8 @@ class CropCycle(models.Model):
         (STATUS_CANCELED, "Отменён"),
     )
 
-    greenhouse = models.ForeignKey(
-        Greenhouse,
+    greenteplitsa = models.ForeignKey(
+        Greenteplitsa,
         on_delete=models.PROTECT,
         related_name="cycles",
         verbose_name="Теплица",
@@ -125,7 +125,7 @@ class CropCycle(models.Model):
         ordering = ("-start_date", "-id")
 
     def __str__(self) -> str:
-        return f"{self.greenhouse} — {self.crop} ({self.start_date})"
+        return f"{self.greenteplitsa} — {self.crop} ({self.start_date})"
 
 
 class WorkType(models.Model):

@@ -6,7 +6,7 @@
   <h1>Цикл выращивания</h1>
 
   <p>
-    <strong>Теплица:</strong> {{ cycle.greenhouse }}<br>
+    <strong>Теплица:</strong> {{ cycle.greenteplitsa }}<br>
     <strong>Культура:</strong> {{ cycle.crop }}<br>
     <strong>Период:</strong> {{ cycle.start_date }}{% if cycle.end_date %} → {{ cycle.end_date }}{% endif %}<br>
     <strong>Статус:</strong> {{ cycle.get_status_display }}

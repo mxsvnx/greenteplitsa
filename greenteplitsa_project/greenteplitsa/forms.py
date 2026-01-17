@@ -1,16 +1,16 @@
 from django import forms
 
-from .models import Greenhouse
+from .models import Greenteplitsa
 from .models import Crop
 from .models import CropCycle
 from .models import WorkLog
 from .models import CropSchedule
 
 
-class GreenhouseForm(forms.ModelForm):
+class GreenteplitsaForm(forms.ModelForm):
     class Meta:
-        model = Greenhouse
-        fields = ("name", "greenhouse_type", "area_m2", "location", "is_active")
+        model = Greenteplitsa
+        fields = ("name", "greenteplitsa_type", "area_m2", "location", "is_active")
 
 
 class CropForm(forms.ModelForm):
@@ -22,7 +22,7 @@ class CropForm(forms.ModelForm):
 class CropCycleForm(forms.ModelForm):
     class Meta:
         model = CropCycle
-        fields = ("greenhouse", "crop", "start_date", "end_date", "status")
+        fields = ("greenteplitsa", "crop", "start_date", "end_date", "status")
 
 
 class WorkLogForm(forms.ModelForm):

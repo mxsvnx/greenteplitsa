@@ -6,22 +6,22 @@
   <h1>Теплицы</h1>
 
   {% if can_edit %}
-    <p><a href="{% url 'greenhouse_add' %}">Добавить теплицу</a></p>
+    <p><a href="{% url 'greenteplitsa_add' %}"Добавить теплицу</a></p>
   {% endif %}
 
-  {% if greenhouses %}
+  {% if greenteplitsas %}
     <ul>
-      {% for g in greenhouses %}
+      {% for g in greenteplitsas %}
         <li>
           <strong>{{ g.name }}</strong>
-          ({{ g.get_greenhouse_type_display }})
+          ({{ g.get_greenteplitsa_type_display }})
           {% if g.area_m2 %}— {{ g.area_m2 }} м²{% endif %}
           {% if g.location %}— {{ g.location }}{% endif %}
           {% if not g.is_active %}— неактивна{% endif %}
 
           {% if can_edit %}
-            — <a href="{% url 'greenhouse_edit' g.pk %}">редактировать</a>
-            — <a href="{% url 'greenhouse_delete' g.pk %}">удалить</a>
+            — <a href="{% url 'greenteplitsa_edit' g.pk %}"редактировать</a>
+            — <a href="{% url 'greenteplitsa_delete' g.pk %}"удалить</a>
           {% endif %}
         </li>
       {% endfor %}

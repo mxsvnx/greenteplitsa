@@ -64,11 +64,11 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Greenhouse',
+            name='Greenteplitsa',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=128, unique=True, verbose_name='Название')),
-                ('greenhouse_type', models.CharField(choices=[('vegetables', 'Овощи'), ('greens', 'Зелень'), ('berries', 'Ягоды'), ('other', 'Другое')], default='vegetables', max_length=32, verbose_name='Тип продукции')),
+                ('greenteplitsa_type', models.CharField(choices=[('vegetables', 'Овощи'), ('greens', 'Зель'), ('berries', 'Ягоды'), ('other', 'Другое')], default='vegetables', max_length=32, verbose_name='Тип продукции')),
                 ('area_m2', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True, verbose_name='Площадь, м²')),
                 ('location', models.CharField(blank=True, max_length=128, verbose_name='Расположение')),
                 ('is_active', models.BooleanField(default=True, verbose_name='Активна')),
@@ -137,17 +137,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cropcycle',
             name='crop',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='cycles', to='greenhouse.crop', verbose_name='Культура'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='cycles', to='greenteplitsa.crop', verbose_name='Культура'),
         ),
         migrations.AddField(
             model_name='cropschedule',
             name='crop',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='schedule', to='greenhouse.crop', verbose_name='Культура'),
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='schedule', to='greenteplitsa.crop', verbose_name='Культура'),
         ),
         migrations.AddField(
             model_name='cropcycle',
-            name='greenhouse',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='cycles', to='greenhouse.greenhouse', verbose_name='Теплица'),
+            name='greenteplitsa',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='cycles', to='greenteplitsa.greenteplitsa', verbose_name='Теплица'),
         ),
         migrations.AddField(
             model_name='worklog',
@@ -157,26 +157,26 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='worklog',
             name='cycle',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='logs', to='greenhouse.cropcycle', verbose_name='Цикл'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='logs', to='greenteplitsa.cropcycle', verbose_name='Цикл'),
         ),
         migrations.AddField(
             model_name='workplan',
             name='cycle',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='plans', to='greenhouse.cropcycle', verbose_name='Цикл'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='plans', to='greenteplitsa.cropcycle', verbose_name='Цикл'),
         ),
         migrations.AddField(
             model_name='worklog',
             name='plan',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='logs', to='greenhouse.workplan', verbose_name='План'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='logs', to='greenteplitsa.workplan', verbose_name='План'),
         ),
         migrations.AddField(
             model_name='workplan',
             name='work_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='plans', to='greenhouse.worktype', verbose_name='Тип работы'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='plans', to='greenteplitsa.worktype', verbose_name='Тип работы'),
         ),
         migrations.AddField(
             model_name='worklog',
             name='work_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='logs', to='greenhouse.worktype', verbose_name='Тип работы'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='logs', to='greenteplitsa.worktype', verbose_name='Тип работы'),
         ),
     ]

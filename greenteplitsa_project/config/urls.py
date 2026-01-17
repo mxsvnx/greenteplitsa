@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('django.contrib.auth.urls')),
     path("favicon.ico", RedirectView.as_view(url=static_path("favicon.ico"))),
-    path('', include('greenhouse.urls')),
+    path('', include('greenteplitsa.urls')),
 ]
 
 if settings.DEBUG:

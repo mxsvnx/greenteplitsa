@@ -2,11 +2,11 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 
-from greenhouse.models import WorkType
+from greenteplitsa.models import WorkType
 
 
 class Command(BaseCommand):
-    help = "Seed initial data for greenhouse app (work types and agronomist group)."
+    help = "Seed initial data for greenteplitsa app (work types and agronomist group)."
 
     def handle(self, *args, **options):
         work_types = [
@@ -31,11 +31,11 @@ class Command(BaseCommand):
 
         group, _ = Group.objects.get_or_create(name="chief_agronomist")
 
-        ct = ContentType.objects.get(app_label="greenhouse", model="greenhouse")
+        ct = ContentType.objects.get(app_label="greenteplitsa", model="greenteplitsa")
         perms = Permission.objects.filter(content_type=ct)
         group.permissions.set(perms)
 
         self.stdout.write(self.style.SUCCESS(
             f"WorkType: created={created_count}, updated={updated_count}. "
-            f"Group 'chief_agronomist' synced with greenhouse permissions."
+            f"Group 'chief_agronomist' synced with greenteplitsa permissions."
         ))

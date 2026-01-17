@@ -5,10 +5,10 @@ from . import views
 urlpatterns = [
     path("", views.DashboardView.as_view(), name="dashboard"),
 
-    path("greenhouses/", views.GreenhouseListView.as_view(), name="greenhouse_list"),
-    path("greenhouses/add/", views.GreenhouseCreateView.as_view(), name="greenhouse_add"),
-    path("greenhouses/<int:pk>/edit/", views.GreenhouseUpdateView.as_view(), name="greenhouse_edit"),
-    path("greenhouses/<int:pk>/delete/", views.GreenhouseDeleteView.as_view(), name="greenhouse_delete"),
+    path("greenteplitsas/", views.GreenteplitsaListView.as_view(), name="greenteplitsa_list"),
+    path("greenteplitsas/add/", views.GreenteplitsaCreateView.as_view(), name="greenteplitsa_add"),
+    path("greenteplitsas/<int:pk>/edit/", views.GreenteplitsaUpdateView.as_view(), name="greenteplitsa_edit"),
+    path("greenteplitsas/<int:pk>/delete/", views.GreenteplitsaDeleteView.as_view(), name="greenteplitsa_delete"),
     path("crops/", views.CropListView.as_view(), name="crop_list"),
     path("crops/add/", views.CropCreateView.as_view(), name="crop_add"),
     path("crops/<int:pk>/edit/", views.CropUpdateView.as_view(), name="crop_edit"),

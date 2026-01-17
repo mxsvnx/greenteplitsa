@@ -6,19 +6,19 @@ from django.db.models import Sum
 from django.contrib import messages
 
 
-from .forms import CropCycleForm, CropForm, CropScheduleForm, GreenhouseForm, WorkLogForm
+from .forms import CropCycleForm, CropForm, CropScheduleForm, GreenteplitsaForm, WorkLogForm
 from .mixins import ChiefAgronomistRequiredMixin
-from .models import Crop, CropCycle, CropSchedule, Greenhouse, WorkPlan, WorkType
+from .models import Crop, CropCycle, CropSchedule, Greenteplitsa, WorkPlan, WorkType
 
 
 class DashboardView(TemplateView):
     template_name = "greenhouse/dashboard.html"
 
 
-class GreenhouseListView(LoginRequiredMixin, ListView):
-    model = Greenhouse
-    template_name = "greenhouse/greenhouse_list.html"
-    context_object_name = "greenhouses"
+class GreenteplitsaListView(LoginRequiredMixin, ListView):
+    model = Greenteplitsa
+    template_name = "greenhouse/greenteplitsa_list.html"
+    context_object_name = "greenteplitsas"
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
@@ -28,24 +28,24 @@ class GreenhouseListView(LoginRequiredMixin, ListView):
         return context
 
 
-class GreenhouseCreateView(LoginRequiredMixin, ChiefAgronomistRequiredMixin, CreateView):
-    model = Greenhouse
-    form_class = GreenhouseForm
-    template_name = "greenhouse/greenhouse_form.html"
-    success_url = reverse_lazy("greenhouse_list")
+class GreenteplitsaCreateView(LoginRequiredMixin, ChiefAgronomistRequiredMixin, CreateView):
+    model = Greenteplitsa
+    form_class = GreenteplitsaForm
+    template_name = "greenhouse/greenteplitsa_form.html"
+    success_url = reverse_lazy("greenteplitsa_list")
 
 
-class GreenhouseUpdateView(LoginRequiredMixin, ChiefAgronomistRequiredMixin, UpdateView):
-    model = Greenhouse
-    form_class = GreenhouseForm
-    template_name = "greenhouse/greenhouse_form.html"
-    success_url = reverse_lazy("greenhouse_list")
+class GreenteplitsaUpdateView(LoginRequiredMixin, ChiefAgronomistRequiredMixin, UpdateView):
+    model = Greenteplitsa
+    form_class = GreenteplitsaForm
+    template_name = "greenhouse/greenteplitsa_form.html"
+    success_url = reverse_lazy("greenteplitsa_list")
 
 
-class GreenhouseDeleteView(LoginRequiredMixin, ChiefAgronomistRequiredMixin, DeleteView):
-    model = Greenhouse
-    template_name = "greenhouse/greenhouse_confirm_delete.html"
-    success_url = reverse_lazy("greenhouse_list")
+class GreenteplitsaDeleteView(LoginRequiredMixin, ChiefAgronomistRequiredMixin, DeleteView):
+    model = Greenteplitsa
+    template_name = "greenhouse/greenteplitsa_confirm_delete.html"
+    success_url = reverse_lazy("greenteplitsa_list")
 
 
 class CropListView(LoginRequiredMixin, ListView):
@@ -91,7 +91,7 @@ class CropCycleListView(LoginRequiredMixin, ListView):
         return (
             super()
             .get_queryset()
-            .select_related("greenhouse", "crop", "created_by")
+            .select_related("greenteplitsa", "crop", "created_by")
         )
 
     def get_context_data(self, **kwargs):
@@ -134,7 +134,7 @@ class CropCycleDetailView(LoginRequiredMixin, DetailView):
         return (
             super()
             .get_queryset()
-            .select_related("greenhouse", "crop", "created_by")
+            .select_related("greenteplitsa", "crop", "created_by")
             .prefetch_related("plans__work_type", "logs__work_type")
         )
 
